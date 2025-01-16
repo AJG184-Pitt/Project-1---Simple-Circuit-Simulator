@@ -1,11 +1,8 @@
-import numpy as np
-import pandas as pd
-
-class bus:
+class Bus:
     def __init__(self, name, v):
         self.name = name
         self.v = v
 
-    @classmethod
-    def set_bus_v(self, voltage):
+    # @classmethod
+    def set_bus_voltage(self, voltage):
         self.v = voltage
