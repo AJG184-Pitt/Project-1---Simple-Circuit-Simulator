@@ -11,8 +11,6 @@ print("Numpy version:", np.__version__)
 print("Pandas version:", pd.__version__)
 print("\n")
 
-
-
 # Test load class
 load = Load("load", "bus", 2, 2, 3)
 

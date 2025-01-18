@@ -13,22 +13,19 @@ class Circuit:
         self.i = current
 
     def add_bus(self, name, v):
-        self.bus = Bus(name, v)
-        self.buses['bus_name'] = name
-        self.buses['bus_value'] = v
+        bus = Bus(name, v)
+        self.buses[name] = bus
 
     def add_resistor_element(self, name, bus1, bus2, r, g):
-        self.resistor = Resistor(name, bus1, bus2, r, g)
-        self.resistors['resistor_name'] = name
-        self.resistors['resistor_value'] = r
+        resistor = Resistor(name, bus1, bus2, r, g)
+        self.resistors[name] = resistor        
 
     def add_load_element(self, name, bus, p, q, g):
-        self.load = Load(name, bus, p, q, g)
-        self.loads['load_name'] = name
-        self.loads['load_value'] = g
+        load = Load(name, bus, p, q, g)
+        self.loads[name] = load        
 
     def add_vsource_element(self, name, bus, v):
-        self.vsource_obj = Vsource(name, bus, v)
+        vsource_obj = Vsource(name, bus, v)
         self.vsource = v
 
     def set_i(self, current):
@@ -37,9 +34,8 @@ class Circuit:
     def print_nodal_voltage(self):
         print(f"Nodal voltage for circuit {self.name}")
 
-        if hasattr(self, 'bus'):
-            print(f"Bus: {self.buses['bus_name']}")
-            print(f"Bus voltage: {self.buses['bus_value']}")
+        for bus_name, bus in self.buses.items():
+            print(f"Bus: {bus_name}, {bus}")
 
         if hasattr(self, 'vsource'):
             print(f"Vsource name: {self.vsource.name}")
@@ -49,5 +45,16 @@ class Circuit:
     def print_circuit_current(self):
         print(f"Current at circuit {self.name}")
 
-        if hasattr(self, 'i'):
-            t
+        # Calculate the current based on values
+        total_resistance = 0
+        for resistor in self.resistors.values():
+            total_resistance_calc += resistor.r
+        
+        total_resistance = total_resistance_calc
+        
+        # If statement for printing current
+        if total_resistance != 0:
+            current  = self.vsource / total_resistance
+            print(f"Calculated current {current}")
+        else:
+            print("Cannot calculate current due to zero resistance")
