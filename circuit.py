@@ -4,32 +4,36 @@ from resistor import Resistor
 from vsource import Vsource
 
 class Circuit:
-    def __init__(self, name, bus, resistor, load, vsource, current):
+    def __init__(self, name, buses, resistors, loads, vsource, i):
         self.name = name
-        self.buses = dict()
-        self.resistors = dict()
-        self.loads = dict()
+        self.buses = dict(buses)
+        self.resistors = dict(resistors)
+        self.loads = dict(loads)
         self.vsource = vsource
-        self.i = current
+        self.i = i
 
     def add_bus(self, name, v):
         bus = Bus(name, v)
         self.buses[name] = bus
+        return bus
 
     def add_resistor_element(self, name, bus1, bus2, r, g):
         resistor = Resistor(name, bus1, bus2, r, g)
         self.resistors[name] = resistor        
+        return resistor
 
     def add_load_element(self, name, bus, p, q, g):
         load = Load(name, bus, p, q, g)
-        self.loads[name] = load        
+        self.loads[name] = load
+        return load
 
     def add_vsource_element(self, name, bus, v):
         vsource_obj = Vsource(name, bus, v)
-        self.vsource = v
+        self.vsource = vsource_obj
+        return vsource_obj
 
     def set_i(self, current):
-        self.i = current
+        self.i = float(current)
 
     def print_nodal_voltage(self):
         print(f"Nodal voltage for circuit {self.name}")
@@ -45,16 +49,14 @@ class Circuit:
     def print_circuit_current(self):
         print(f"Current at circuit {self.name}")
 
-        # Calculate the current based on values
+        # Calculate the current based on resistance
         total_resistance = 0
         for resistor in self.resistors.values():
-            total_resistance_calc += resistor.r
-        
-        total_resistance = total_resistance_calc
+            total_resistance += resistor.r
         
         # If statement for printing current
         if total_resistance != 0:
-            current  = self.vsource / total_resistance
+            current  = self.vsource.v / total_resistance
             print(f"Calculated current {current}")
         else:
             print("Cannot calculate current due to zero resistance")

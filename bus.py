@@ -3,6 +3,5 @@ class Bus:
         self.name = name
         self.v = v
 
-    # @classmethod
     def set_bus_voltage(self, voltage):
         self.v = voltage
