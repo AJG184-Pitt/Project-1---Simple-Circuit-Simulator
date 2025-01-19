@@ -15,22 +15,18 @@ class Circuit:
     def add_bus(self, name, v):
         bus = Bus(name, v)
         self.buses[name] = bus
-        return bus
-
+         
     def add_resistor_element(self, name, bus1, bus2, r, g):
         resistor = Resistor(name, bus1, bus2, r, g)
         self.resistors[name] = resistor        
-        return resistor
 
     def add_load_element(self, name, bus, p, q, g):
         load = Load(name, bus, p, q, g)
         self.loads[name] = load
-        return load
 
     def add_vsource_element(self, name, bus, v):
         vsource_obj = Vsource(name, bus, v)
         self.vsource = vsource_obj
-        return vsource_obj
 
     def set_i(self, current):
         self.i = float(current)

@@ -12,7 +12,7 @@ print("Pandas version:", pd.__version__)
 print("\n")
 
 # Test load class
-load = Load("load", "bus", 2, 2, 3)
+load = Load("load", "bus", 2.0, 2.0)
 
 print("Load class values")
 print("=================")

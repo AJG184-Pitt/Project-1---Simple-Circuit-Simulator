@@ -12,5 +12,8 @@ class Load:
             self.v = 0.0
 
         # Calculate conductance of load
+        if self.p <= 0:
+            self.p = 0.0
+        
         self.r = self.v**2 / self.p
         self.g = 1 / self.r
