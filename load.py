@@ -4,16 +4,11 @@ class Load:
         self.bus1 = bus1
         self.p = p
         self.v = v
-        self.r = 0.0
-        self.g = 0.0
-
-    def calculate_g(self):
-        if self.v <= 0:
-            self.v = 0.0
-
-        # Calculate conductance of load
-        if self.p <= 0:
-            self.p = 0.0
-        
-        self.r = self.v**2 / self.p
+        self.r = self.calculate_resistance()
+        self.g = self.calculate_conductance()
+    
+    def calculate_conductance(self):
         self.g = 1 / self.r
+
+    def calculate_resistance(self):
+        self.r = self.v**2 / self.p
