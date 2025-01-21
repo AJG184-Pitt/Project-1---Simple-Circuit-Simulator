@@ -4,12 +4,12 @@ from resistor import Resistor
 from vsource import Vsource
 
 class Circuit:
-    def __init__(self, name, buses, resistors, loads, vsource):
+    def __init__(self, name, buses, resistors, loads):
         self.name = name
         self.buses = dict(buses)
         self.resistors = dict(resistors)
         self.loads = dict(loads)
-        self.vsource = vsource
+        self.vsource = None
         self.i = 0.0
 
     def add_bus(self, name: str, v: float):
@@ -47,7 +47,7 @@ class Circuit:
 
         # Calculate the current based on resistance
         total_resistance = 0
-        for resistor in self.resistors.r():
+        for resistor in self.resistors.values():
             total_resistance += resistor.r
         
         # If statement for printing current
