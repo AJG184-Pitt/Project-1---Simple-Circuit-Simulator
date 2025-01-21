@@ -4,24 +4,24 @@ from resistor import Resistor
 from vsource import Vsource
 
 class Circuit:
-    def __init__(self, name, buses, resistors, loads):
+    def __init__(self, name):
         self.name = name
-        self.buses = dict(buses)
-        self.resistors = dict(resistors)
-        self.loads = dict(loads)
-        self.vsource = None
+        self.buses = dict()
+        self.resistors = dict()
+        self.loads = dict()
+        self.vsource = dict()
         self.i = 0.0
 
-    def add_bus(self, name: str, v: float):
-        bus_obj = Bus(name, v)
+    def add_bus(self, name: str):
+        bus_obj = Bus(name)
         self.buses[bus] = bus_obj
          
-    def add_resistor_element(self, name: str, bus1: str, bus2: str, r: float, g: float):
-        resistor_obj = Resistor(name, bus1, bus2, r, g)
+    def add_resistor_element(self, name: str, bus1: str, bus2: str, r: float):
+        resistor_obj = Resistor(name, bus1, bus2, r)
         self.resistors[resistor] = resistor_obj
 
     def add_load_element(self, name: str, bus1: str, p: float, v: float):
-        load_obj = Load(name, bus, p, v)
+        load_obj = Load(name, bus1, p, v)
         self.loads[load] = load_obj
 
     def add_vsource_element(self, name: str, bus1: str, v: float):
