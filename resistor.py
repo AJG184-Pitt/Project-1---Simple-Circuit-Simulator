@@ -8,4 +8,5 @@ class Resistor:
 
     def calc_g(self):
         # Calculates the conductance of resistor
+        self.g = float
         self.g = 1 / self.r

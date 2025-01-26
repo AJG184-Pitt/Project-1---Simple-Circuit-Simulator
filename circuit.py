@@ -14,19 +14,19 @@ class Circuit:
 
     def add_bus(self, name: str):
         bus_obj = Bus(name)
-        self.buses[bus] = bus_obj
+        self.buses['bus'] = bus_obj
          
     def add_resistor_element(self, name: str, bus1: str, bus2: str, r: float):
         resistor_obj = Resistor(name, bus1, bus2, r)
-        self.resistors[resistor] = resistor_obj
+        self.resistors['resistor'] = resistor_obj
 
     def add_load_element(self, name: str, bus1: str, p: float, v: float):
         load_obj = Load(name, bus1, p, v)
-        self.loads[load] = load_obj
+        self.loads['load'] = load_obj
 
     def add_vsource_element(self, name: str, bus1: str, v: float):
         vsource_obj = Vsource(name, bus1, v)
-        self.vsource = vsource_obj
+        self.vsource['vsource'] = vsource_obj
 
     def set_i(self, current):
         self.i = float(current)

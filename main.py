@@ -4,25 +4,17 @@ from bus import Bus
 from load import Load
 from resistor import Resistor
 from vsource import Vsource
+from circuit import Circuit
+from solution import Solution
 
-print("Output versions")
-print("===============")
-print("Numpy version:", np.__version__)
-print("Pandas version:", pd.__version__)
-print("\n")
+# Circuit objects
+circuit = Circuit("Test")
+circuit.add_bus("A")
+circuit.add_bus("B")
+circuit.add_vsource_element("VA", "A", 100.0)
+circuit.add_resistor_element("Rab", "A", "B", 5)
+circuit.add_load_element("Lb", "B", 2000.0, 100.0)
 
-# Test load class
-load = Load("load", "bus", 2.0, 2.0)
-
-print("Load class values")
-print("=================")
-print(load.name)
-print(load.bus1)
-print(load.p)
-print(load.q)
-print(load.g)
-
-# Test bus class
-bus = Bus("Bus1", 5)
-print(bus.name)
-print(bus.v)
+# Solution object
+solution = Solution(circuit)
+solution.do_power_flow()

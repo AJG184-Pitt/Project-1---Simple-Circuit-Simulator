@@ -25,3 +25,13 @@ class Solution:
         else:
             print("Cannot calculate current")
     
+        # Calculate voltage at bus B
+        # V = I/R for series
+        voltage_drop = self.circuit.i * list(self.circuit.resistors.values())[0].r
+        bus_b_voltage = self.circuit.vsource.v - voltage_drop
+
+        if 'B' in self.circuit.buses:
+            self.circuit.buses['B'].v = bus_b_voltage
+
+        self.circuit.print_nodal_voltage()
+        self.circuit.print_circuit_current()
