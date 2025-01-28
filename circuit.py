@@ -10,7 +10,7 @@ class Circuit:
         self.resistors = dict()
         self.loads = dict()
         self.vsources = dict()
-        self.i = 0.0
+        self.i = float
 
     def add_bus(self, name: str):
         bus_obj = Bus(name)
@@ -31,33 +31,25 @@ class Circuit:
     def set_i(self, current):
         self.i = float(current)
 
+    # Prints out the circuit information including buses
     def print_nodal_voltage(self):
         print(f"Nodal voltage for circuit {self.name}")
 
         for bus_name, bus in self.buses.items():
             print(f"Bus: {bus_name}, Voltage: {bus.v:.3f}")
 
-        for vsource_name, vsource in self.vsources.items():
-            print(f"Vsource name: {vsource.name}")
-            print(f"Vsource bus: {vsource.bus1}")
-            print(f"Vsource voltage: {vsource.v:.3f}")
+        # for vsource_name, vsource in self.vsources.items():
+        #     print(f"Vsource name: {vsource.name}")
+        #     print(f"Vsource bus: {vsource.bus1}")
+        #     print(f"Vsource voltage: {vsource.v:.3f}")
+        #
+        # for load in self.loads.values():
+        #     print(f"Load name: {load.name}")
+        #     print(f"Load bus1: {load.bus1}")
+        #     print(f"Load p: {load.p}")
+        #     print(f"Load v: {load.v}")
 
+    # Prints out the circuit current value
     def print_circuit_current(self):
         print(f"Current at circuit {self.name}")
-
-        # Calculate the current based on resistance
-        total_resistance = sum(resistor.r for resistor in self.resistors.values())
-
-        # Check if there are any voltage sources
-        if not self.vsources:
-            print("No voltage sources in circuit")
-            return
-
-        # Use the first voltage source for calculation (might need to be modified based on your needs)
-        vsource = next(iter(self.vsources.values()))
-
-        if total_resistance == 0:
-            print("Cannot calculate current due to zero resistance")
-        else:
-            current = vsource.v / total_resistance
-            print(f"Calculated current: {current:.3f} A")
+        print(f"Circuit current: {self.i:.3f} A")

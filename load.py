@@ -11,7 +11,7 @@ class Load:
         if self.r == 0:
             return float('inf')
         else:
-            self.g = 1 / self.r
+            self.g = self.p / self.v**2
         return self.g
 
     def calculate_resistance(self):

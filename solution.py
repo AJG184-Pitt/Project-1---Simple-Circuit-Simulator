@@ -1,3 +1,4 @@
+import math
 from circuit import Circuit
 
 class Solution:
@@ -5,7 +6,6 @@ class Solution:
         self.circuit = circuit
 
     def do_power_flow(self):
-        
         # Check for circuit components
         if not self.circuit.vsources:
             print("Circuit missing voltage source")
@@ -18,31 +18,23 @@ class Solution:
             return
 
         vsource = next(iter(self.circuit.vsources.values()))
-        
-        # Calculate total conductance
-        total_conductance = 0
-        for resistor in self.circuit.resistors.values():
-            total_conductance += 1 / resistor.r
+        resistor = list(self.circuit.resistors.values())[0]
+        load = list(self.circuit.loads.values())[0]
 
-        # Calculate load conductance
-        for load in self.circuit.loads.values():
-            total_conductance += load.g
+        # Total resistance is series combination
+        total_resistance = self.circuit.resistors["Rab"].r + self.circuit.loads["Lb"].r
 
-        if total_conductance != 0:
-            current = vsource.v * total_conductance
-            self.circuit.set_i(current)
-        else:
-            print("Cannot calculate current")
-            return
+        # Calculate current (I = V/R)
+        circuit_current = self.circuit.vsources["VA"].v / total_resistance
+        self.circuit.set_i(circuit_current)
 
         # Set voltage at source bus A
         if vsource.bus1 in self.circuit.buses:
-            self.circuit.buses[vsource.bus1].v = vsource.v
-    
+            self.circuit.buses[vsource.bus1].v = self.circuit.vsources["VA"].v
+
         # Calculate voltage at bus B
-        # V = I/R for series
-        voltage_drop = self.circuit.i * list(self.circuit.resistors.values())[0].r
-        bus_b_voltage = vsource.v - voltage_drop
+        voltage_drop = self.circuit.i * self.circuit.resistors["Rab"].r
+        bus_b_voltage = self.circuit.vsources["VA"].v - voltage_drop
 
         if 'B' in self.circuit.buses:
             self.circuit.buses['B'].v = bus_b_voltage
