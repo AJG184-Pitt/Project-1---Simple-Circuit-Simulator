@@ -4,7 +4,7 @@ from resistor import Resistor
 from vsource import Vsource
 
 class Circuit:
-    def __init__(self, name):
+    def __init__(self, name: str):
         self.name = name
         self.buses = dict()
         self.resistors = dict()

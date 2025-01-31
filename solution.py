@@ -22,22 +22,22 @@ class Solution:
         load = list(self.circuit.loads.values())[0]
 
         # Total resistance is series combination
-        total_resistance = self.circuit.resistors["Rab"].r + self.circuit.loads["Lb"].r
+        total_resistance = self.circuit.resistors["Wire"].r + self.circuit.loads["Load1"].r
 
         # Calculate current (I = V/R)
-        circuit_current = self.circuit.vsources["VA"].v / total_resistance
+        circuit_current = self.circuit.vsources["V1"].v / total_resistance
         self.circuit.set_i(circuit_current)
 
         # Set voltage at source bus A
         if vsource.bus1 in self.circuit.buses:
-            self.circuit.buses[vsource.bus1].v = self.circuit.vsources["VA"].v
+            self.circuit.buses[vsource.bus1].v = self.circuit.vsources["V1"].v
 
         # Calculate voltage at bus B
-        voltage_drop = self.circuit.i * self.circuit.resistors["Rab"].r
-        bus_b_voltage = self.circuit.vsources["VA"].v - voltage_drop
+        voltage_drop = self.circuit.i * self.circuit.resistors["Wire"].r
+        bus_b_voltage = self.circuit.vsources["V1"].v - voltage_drop
 
-        if 'B' in self.circuit.buses:
-            self.circuit.buses['B'].v = bus_b_voltage
+        if 'Load' in self.circuit.buses:
+            self.circuit.buses["Load"].v = bus_b_voltage
 
         self.circuit.print_nodal_voltage()
         self.circuit.print_circuit_current()

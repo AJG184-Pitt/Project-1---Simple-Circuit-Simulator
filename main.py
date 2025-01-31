@@ -1,15 +1,13 @@
-import numpy as np
-import pandas as pd
 from circuit import Circuit
 from solution import Solution
 
 # Circuit objects
-circuit = Circuit("Test")
-circuit.add_bus("A")
-circuit.add_bus("B")
-circuit.add_vsource_element("VA", "A", 100.0)
-circuit.add_resistor_element("Rab", "A", "B", 5)
-circuit.add_load_element("Lb", "B", 2000.0, 50.0)
+circuit = Circuit("Wire_Test")
+circuit.add_bus("Source")
+circuit.add_bus("Load")
+circuit.add_vsource_element("V1", "Source", 120.0)
+circuit.add_resistor_element("Wire", "Source", "Load", 0.5)
+circuit.add_load_element("Load1", "Load", 1500.0, 100.0)
 
 # Solution object
 solution = Solution(circuit)

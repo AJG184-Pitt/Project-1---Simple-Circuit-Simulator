@@ -1,0 +1,68 @@
+@startuml
+'https://plantuml.com/class-diagram
+!pragma layout smetana
+
+class Bus {
+    +name: str
+    +v: float
+    +__init__(name: str)
+    +set_bus_v(voltage): void
+}
+
+class Resistor {
+    +name: str
+    +bus1: str
+    +bus2: str
+    +r: float
+    +g: float
+    +__init__(name: str, bus1: str, bus2: str, r: float)
+    +calc_g(): void
+}
+
+class Load {
+    +name: str
+    +bus1: str
+    +p: float
+    +v: float
+    +p: float
+    +v: float
+    +__init__(name: str, bus1: str, p: float, v: float)
+    +calculate_conductance(): float
+    +calculate_resistance(): float
+}
+
+class Vsource {
+    +name: str
+    +bus1: str
+    +v: float
+}
+
+class Circuit {
+    +name: str
+    +buses: dict
+    +resistors: dict
+    +loads: dict
+    +vsources: dict
+    +i: float
+    +__init__(name: str)
+    +add_bus(name: str): void
+    +add_resistor_element(name: str, bus1: str, bus2: str, r: float): void
+    +add_load_element(name: str, bus1: str, p: float, v: float): void
+    +add_vsource_element(name: str, bus1: str, v: float): void
+    +set_i(current): void
+    +print_nodal_voltage(): void
+    +print_circuit_current(): void
+}
+
+class Solution {
+    +Circuit circuit
+    +__init__(circuit: Circuit)
+    +do_power_flow(): void
+}
+
+Bus --> Circuit
+Resistor --> Circuit
+Load --> Circuit
+Vsource --> Circuit
+Circuit --> Solution
+@enduml
